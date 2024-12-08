@@ -1,0 +1,29 @@
+.quantity .flavor-quantity {
+    border-top: 1px solid rgba(68, 73, 77, 0.25);
+}
+
+.quantity .flavor-quantity:last-child {
+    border-top: 1px solid rgba(68, 73, 77, 0.25);
+    border-bottom: 1px solid rgba(68, 73, 77, 0.25);
+}
+
+.quantity p {
+    @apply font-rubik text-gray-medium;
+}
+
+.quantity input {
+    @apply font-rubik text-gray-medium w-12 text-lg text-center;
+    appearance: none;
+    background-color: transparent;
+}
+
+.define-btn {
+    @apply font-rubik text-xl text-gray-medium;
+    @apply bg-gray-10opacity;
+    @apply border border-gray-50opacity rounded-full;
+    @apply h-8 w-24
+}
+
+.define-btn button {
+    cursor: pointer;
+}

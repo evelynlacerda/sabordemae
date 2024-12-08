@@ -2,9 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom CSS */
+/* Reset */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style-type: none;
+}
+
+*:focus {
+    outline: none;
+}
+
+*::-webkit-inner-spin-button,
+*::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Global CSS */
 body {
     background-color: #D2D6D8;
     width: 100%;
     height: 100vh;
+}
+
+.box {
+    padding: 0 1.5rem 1.5rem;
+    width: 100%;
+}
+
+h1, h2 {
+    font-family: 'Figtree', sans-serif;
+    font-weight: 700;
+    @apply text-gray-dark;
+}
+
+.title {
+    font-size: 2rem;
+    text-align: end;
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
 }
