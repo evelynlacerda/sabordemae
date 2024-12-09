@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import {
 	Select,
 	SelectContent,
@@ -5,26 +6,33 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import { SelectedItemsContext } from "@/context/selectedItemsContext";
+import { QUANTITY_SELECT } from "@/constants/flavors";
 
 const Quantity = () => {
+	const { setSelectedItems } = useContext(SelectedItemsContext);
+
+	const handleSelectChange = (value: string) => {
+		const selectedItem = QUANTITY_SELECT.find(
+			(item) => item.value.toString() === value
+		);
+
+		if (selectedItem) setSelectedItems([selectedItem]);
+	};
+
 	return (
 		<div>
 			<h2 className="subtitle">Quantidade</h2>
-			<Select>
+			<Select onValueChange={handleSelectChange}>
 				<SelectTrigger className="w-full">
 					<SelectValue placeholder="Selecione a quantidade" />
 				</SelectTrigger>
 				<SelectContent className="w-[50%]">
-					<SelectItem value="10">10</SelectItem>
-					<SelectItem value="20">20</SelectItem>
-					<SelectItem value="30">30</SelectItem>
-					<SelectItem value="40">40</SelectItem>
-					<SelectItem value="50">50</SelectItem>
-					<SelectItem value="60">60</SelectItem>
-					<SelectItem value="70">70</SelectItem>
-					<SelectItem value="80">80</SelectItem>
-					<SelectItem value="90">90</SelectItem>
-					<SelectItem value="100">100</SelectItem>
+					{QUANTITY_SELECT.map((item) => (
+						<SelectItem key={item.value} value={item.value.toString()}>
+							{item.text}
+						</SelectItem>
+					))}
 				</SelectContent>
 			</Select>
 		</div>
