@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SelectedItemsContext } from "@/context/selectedItemsContext";
 import { SelectedItemsProvider } from "@/context/selectedItemsProvider";
 
@@ -7,8 +7,13 @@ import Flavor from "./components/flavors";
 import InfoCLient from "./components/infoClient";
 import Footer from "./components/Footer";
 import { PAYMENT_METHOD } from "@/constants/infoOrder";
+import { isStoredOpened } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
 
 const Order = () => {
+    const currentTime = isStoredOpened();
+    const navigate = useNavigate();
+
 	const { selectedItems } = useContext(SelectedItemsContext);
 
 	const [flavorData, setFlavorData] = useState({
@@ -86,6 +91,13 @@ const Order = () => {
 		)}`;
 		window.open(whatsappUrl, "_blank");
 	};
+
+
+    useEffect(() => {
+        if (currentTime === false) {
+            navigate("/closed")
+        }
+    }, [currentTime])
 
 	return (
 		<SelectedItemsProvider>
