@@ -29,6 +29,19 @@ body {
     height: 100vh;
 }
 
+.header, .footer {
+    width: 100%;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header img {
+    width: 96px;
+    height: fit-content;
+}
+
 .box {
     padding: 0 1.5rem 1.5rem;
     width: 100%;
@@ -40,12 +53,33 @@ h1, h2 {
     @apply text-gray-dark;
 }
 
-.title {
+h1 {
     font-size: 2rem;
     text-align: end;
 }
 
-.subtitle {
+h2 {
     font-size: 1.25rem;
     margin-bottom: 0.5rem;
+}
+
+.money-change {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: 1.25rem;
+    border-radius: 20px;
+    border: 1px solid;
+    @apply bg-gray-5opacity border-gray-25opacity;
+}
+
+.money-change span {
+    @apply font-figtree font-semibold text-gray-dark text-lg;
+}
+
+.send-order .btn {
+    padding: 0.5rem 1.5rem;
+    @apply bg-green-light border border-green-dark rounded-full;
+    @apply font-figtree font-semibold text-gray-dark text-base;
 }
