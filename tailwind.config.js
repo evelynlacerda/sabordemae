@@ -23,11 +23,13 @@ export default {
 					"50opacity": "rgba(68,73,77,0.50)",
 					"25opacity": "rgba(68,73,77,0.25)",
 					"10opacity": "rgba(68,73,77,0.1)",
+					"5opacity": "rgba(68,73,77,0.05)",
 				},
 				pink: {
 					"light": "#FEE8D0",
 					"dark": "#D79489",
 					"25opacity": "rgba(215,148,137,0.25)",
+					"75opacity": "rgba(215,148,137,0.5)",
 				},
 				green: {
 					"light": "#9ec9ab",
