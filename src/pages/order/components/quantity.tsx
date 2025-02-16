@@ -9,6 +9,7 @@ import {
 import { SelectedItemsContext } from "@/context/selectedItemsContext";
 import { QUANTITY_SELECT } from "@/constants/flavors";
 
+
 const Quantity = () => {
 	const { setSelectedItems } = useContext(SelectedItemsContext);
 
@@ -17,7 +18,9 @@ const Quantity = () => {
 			(item) => item.value.toString() === value
 		);
 
-		if (selectedItem) setSelectedItems([selectedItem]);
+		if (selectedItem) {
+            setSelectedItems((prevItems) => [...prevItems, selectedItem]);
+        }
 	};
 
 	return (

@@ -1,9 +1,15 @@
 import { SelectedItemsContext } from "@/context/selectedItemsContext";
 import { useContext } from "react";
 
-const Footer = () => {
-	const { selectedItems } = useContext(SelectedItemsContext);
-	const totalPrice = selectedItems.reduce((total, item) => total + item.price, 0);
+interface FooterProps {
+    deliveryFee: number;
+}
+const Footer = ({deliveryFee}: FooterProps) => {
+	let { totalPrice } = useContext(SelectedItemsContext);
+
+    if (deliveryFee){
+        totalPrice += deliveryFee;
+    }
 
 	return (
 		<footer className="footer fixed z-50 -bottom-2 bg-pink-75opacity border-t border-pink-dark">

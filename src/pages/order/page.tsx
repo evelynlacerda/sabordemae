@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { SelectedItemsContext } from "@/context/selectedItemsContext";
-import { SelectedItemsProvider } from "@/context/selectedItemsProvider";
 
 import Quantity from "./components/quantity";
 import Flavor from "./components/flavors";
@@ -13,8 +12,9 @@ import { useNavigate } from "react-router-dom";
 const Order = () => {
     const currentTime = isStoredOpened();
     const navigate = useNavigate();
+    const deliveryFee: number = 5; // Valor da taxa de entrega
 
-	const { selectedItems } = useContext(SelectedItemsContext);
+	const { selectedItems, totalPrice } = useContext(SelectedItemsContext);
 
 	const [flavorData, setFlavorData] = useState({
 		selectedItems: [] as string[],
@@ -33,7 +33,6 @@ const Order = () => {
 	});
 
 	const handleSendOrder = () => {
-		const deliveryFee = 5; // Valor da taxa de entrega
 		const isDelivery = clientInfo.sendingMethod === 2;
 
 		// Detalhes das quantidades
@@ -72,21 +71,22 @@ const Order = () => {
         `;
 
 		// Cálculo do total
-		const totalAmount = selectedItems.reduce(
-			(sum, item) => sum + item.price,
-			0
-		);
-		const totalWithDelivery = isDelivery
-			? totalAmount + deliveryFee
-			: totalAmount;
 
-		const totalDetails = `Total do pedido: R$ ${totalWithDelivery.toFixed(2)}`;
+		const totalWithDelivery = isDelivery
+			? totalPrice + deliveryFee
+			: totalPrice;
+
+
+        const totalDetails = `Total do pedido: R$ ${totalWithDelivery}`;
+
+
 
 		// Montagem da mensagem
-		const message = `*Detalhes do Pedido:*\n${quantityDetails}${flavorDetails}${clientDetails}\n\n${totalDetails}`;
+        const message = `*Detalhes do Pedido:*\n${quantityDetails}${flavorDetails}${clientDetails}\n\n${totalDetails}`;
 
 		// Envio via WhatsApp
-		const whatsappUrl = `https://wa.me/5544998445387?text=${encodeURIComponent(
+
+        const whatsappUrl = `https://wa.me/5544998445387?text=${encodeURIComponent(
 			message
 		)}`;
 		window.open(whatsappUrl, "_blank");
@@ -99,30 +99,29 @@ const Order = () => {
         }
     }, [currentTime])
 
+
 	return (
-		<SelectedItemsProvider>
-			<div className="flex flex-col gap-4 mt-24 pb-[88px]">
-				<div className="box">
-					<h1 className="title">Etapa 1</h1>
-					<div className="flex flex-col gap-8">
-						<Quantity />
-						<Flavor flavorData={flavorData} setFlavorData={setFlavorData} />
-					</div>
-				</div>
-				<div className="box">
-					<h1 className="title">Etapa 2</h1>
-					<div className="flex flex-col gap-8">
-						<InfoCLient setFormData={setClientInfo} formData={clientInfo} />
-						<div className="send-order flex justify-center">
-							<button className="btn" onClick={handleSendOrder}>
-								Enviar Pedido
-							</button>
-						</div>
-					</div>
-				</div>
-				<Footer />
-			</div>
-		</SelectedItemsProvider>
+        <div className="flex flex-col gap-4 mt-24 pb-[88px]">
+            <div className="box">
+                <h1 className="title">Etapa 1</h1>
+                <div className="flex flex-col gap-8">
+                    <Quantity/>
+                    <Flavor flavorData={flavorData} setFlavorData={setFlavorData} />
+                </div>
+            </div>
+            <div className="box">
+                <h1 className="title">Etapa 2</h1>
+                <div className="flex flex-col gap-8">
+                    <InfoCLient setFormData={setClientInfo} formData={clientInfo} />
+                    <div className="send-order flex justify-center">
+                        <button className="btn" onClick={handleSendOrder}>
+                            Enviar Pedido
+                        </button>
+                    </div>
+                </div>
+            </div>
+        <Footer deliveryFee={clientInfo.sendingMethod === 2 ? deliveryFee : 0}/>
+        </div>
 	);
 };
 
